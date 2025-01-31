@@ -1,0 +1,122 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: 0 0% 100%;
+  --foreground: 222.2 84% 4.9%;
+
+  /* Custom Nexabot Colors */
+  --dark-bg: #0b0c10;
+  --slate: #1f2833;
+  --light-gray: #c5c6c7;
+  --cyan: #66fcf1;
+  --teal: #45a29e;
+  --gold: #ffd700;
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+.bg-gradient-nexabot {
+  background: linear-gradient(135deg, var(--cyan) 0%, var(--teal) 100%);
+  background-size: 200% 200%;
+  animation: gradient 5s ease infinite;
+}
+
+.text-gradient-nexabot {
+  background: linear-gradient(135deg, var(--cyan) 0%, var(--teal) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-size: 200% 200%;
+  animation: gradient 5s ease infinite;
+}
+
+.gold-glow {
+  text-shadow: 0 0 10px var(--gold);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.float-animation {
+  animation: float 3s ease-in-out infinite;
+}
+
+.main-background {
+  background-image: linear-gradient(rgba(11, 12, 16, 0.8), rgba(31, 40, 51, 0.8)),
+    url("https://hebbkx1anhila5yf.public.blob.vercel-storage.com/nb6-aHduWgvOGgbcv1gClVLe00jsL2Qzf1.webp");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  position: relative;
+}
+
+.main-background::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, rgba(102, 252, 241, 0.1), rgba(255, 215, 0, 0.1));
+  pointer-events: none;
+}
+
+.sos-card {
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+
+.sos-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px -5px rgba(102, 252, 241, 0.3);
+}
+
+.emergency-pulse {
+  animation: emergency-pulse 2s infinite;
+}
+
+@keyframes emergency-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 20px rgba(239, 68, 68, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(239, 68, 68, 0);
+  }
+}
+
