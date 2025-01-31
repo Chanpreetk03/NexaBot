@@ -1,18 +1,22 @@
 from fastapi import APIRouter, HTTPException
 from bson import ObjectId
-from app.database import database
+from app.database import get_database
 from app.schemas.event import EventCreate, EventUpdate, EventResponse
 
-router = APIRouter()
+
+router= APIRouter()
+# Get database instance
+database = get_database()
 events_collection = database["events"]
 
 @router.post("/", response_model=EventResponse)
 async def create_event(event: EventCreate):
     """Create a new event"""
-    new_event = await events_collection.insert_one(event.dict())
-    created_event = await events_collection.find_one({"_id": new_event.inserted_id})
+    event_dict = event.dict()
+    event_dict["_id"] = ObjectId()
+    await events_collection.insert_one(event_dict)
     
-    return EventResponse(**created_event)
+    return EventResponse(**event_dict, id=str(event_dict["_id"]))
 
 @router.get("/{id}", response_model=EventResponse)
 async def get_event(id: str):
@@ -22,13 +26,13 @@ async def get_event(id: str):
     if not event:
         raise HTTPException(status_code=404, detail="Event not found")
 
-    return EventResponse(**event)
+    return EventResponse(**event, id=str(event["_id"]))
 
 @router.get("/", response_model=list[EventResponse])
 async def get_all_events():
     """Get all events"""
     events = await events_collection.find().to_list(100)
-    return [EventResponse(**event) for event in events]
+    return [EventResponse(**event, id=str(event["_id"])) for event in events]
 
 @router.patch("/{id}", response_model=EventResponse)
 async def update_event(id: str, event_update: EventUpdate):
@@ -41,8 +45,18 @@ async def update_event(id: str, event_update: EventUpdate):
     updated_event = await events_collection.find_one_and_update(
         {"_id": ObjectId(id)}, {"$set": update_data}, return_document=True
     )
-    
+
     if not updated_event:
         raise HTTPException(status_code=404, detail="Event not found")
 
-    return Even
+    return EventResponse(**updated_event, id=str(updated_event["_id"]))
+
+@router.delete("/{id}")
+async def delete_event(id: str):
+    """Delete an event"""
+    result = await events_collection.delete_one({"_id": ObjectId(id)})
+
+    if result.deleted_count == 0:
+        raise HTTPException(status_code=404, detail="Event not found")
+
+    return {"message": "Event deleted successfully"}
