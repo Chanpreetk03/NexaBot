@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from app.routes.user import router as UserRouter
 from app.routes.event import router as EventRouter
+from app.routes.chat import router as ChatRouter 
 
 app = FastAPI()
 
@@ -13,5 +14,5 @@ def read_root():
 # Include routers for users and events
 app.include_router(UserRouter, prefix="/users", tags=["Users"])
 app.include_router(EventRouter, prefix="/events", tags=["Events"])
+app.include_router(ChatRouter, prefix="/chat", tags=["Chat"])  
 
-# Add more routes as necessary
