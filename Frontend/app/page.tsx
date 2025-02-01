@@ -4,9 +4,9 @@ import { Logo } from "@/components/logo"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import { Heart, Brain, Users, Calendar, Phone, BookOpen } from "lucide-react"
+import { Heart, Brain, Users, Calendar, Phone, BookOpen, Bold } from "lucide-react"
 import { motion } from "framer-motion";
-
+import { TypeAnimation } from "react-type-animation";
 
 const features = [
   {
@@ -53,14 +53,41 @@ export default function Home() {
           >
             <Logo variant="large" className="mb-8" />
           </motion.div>
-          <motion.h1
+          {/* <motion.h1
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.3 }}
-            className="text-4xl md:text-6xl font-bold mb-6 text-primary gold-glow"
+            className="text-4xl md:text-6xl font-bold mb-6 text-[#178582] hover:glow-text"
           >
             Your AI Companion for Mental Well-being
-          </motion.h1>
+          </motion.h1> */}
+           <motion.div
+      initial={{ y: 20, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ delay: 0.3 }}
+      className="text-center"
+    >
+      <TypeAnimation
+        sequence={[
+          "Your AI Companion for Mental Well-being",
+          1000,
+          "AI for Your Inner Strength 💪🤖",
+          2000,
+          "AI With Heart, For Inner Peace💖",
+          1500,
+        ]}
+        speed={50}
+        style={{
+          fontSize: "50px",
+          //color: "#178582", // Your teal color
+          display: "inline-block",
+          textShadow: "1px 1px 20px #000", // Text shadow for better contrast
+          fontWeight: "bold", // This makes the text bold
+        }}
+        className="text-primary"
+        repeat={Infinity}
+      />
+    </motion.div>
           <motion.p
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
@@ -179,7 +206,7 @@ export default function Home() {
             <Button size="lg" className="bg-primary text-secondary hover:bg-primary-dark" asChild>
               <Link href="/chat">Start Chat</Link>
             </Button>
-            <Button size="lg" variant="outline" className="border-primary text-primary hover:bg-primary/10" asChild>
+            <Button size="lg" variant="outline" className="border-primary-dark text-primary-dark hover:bg-primary/10" asChild>
               <Link href="/about">Learn More</Link>
             </Button>
           </motion.div>
@@ -222,7 +249,7 @@ export default function Home() {
             <div>
               <h3 className="text-xl font-bold mb-4 text-primary">Contact</h3>
               <p className="text-neutral">Email: support@nexabot.com</p>
-              <p className="text-neutral">Emergency: 911</p>
+              <p className="text-neutral">Emergency: 112</p>
             </div>
           </div>
           <div className="mt-8 pt-8 border-t border-primary/20 text-center text-neutral">
@@ -233,4 +260,5 @@ export default function Home() {
     </div>
   )
 }
+
 

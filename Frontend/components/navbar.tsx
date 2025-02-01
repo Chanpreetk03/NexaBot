@@ -11,7 +11,7 @@ const navItems = [
   { href: "/about", icon: Heart, label: "About", color: "primary" },
   { href: "/resources", icon: BookOpen, label: "Resources", color: "primary" },
   { href: "/events", icon: Calendar, label: "Events", color: "gold" },
-  { href: "/therapists", icon: Users, label: "Therapists", color: "primary-dark" },
+  { href: "/therapists", icon: Users, label: "Therapists", color: "primary" },
   { href: "/sos", icon: AlertTriangle, label: "SOS", color: "red-500" },
 ]
 
@@ -75,12 +75,12 @@ function AuthButtons() {
   return (
     <div className="hidden md:flex items-center space-x-2">
       <motion.div whileHover={{ scale: 1.05 }}>
-        <Button variant="outline" className="text-gold border-gold hover:bg-gold/10" asChild>
+        <Button variant="outline" className="bg-white text-secondary-dark hover:opacity-90" asChild>
           <Link href="/signin">Sign In</Link>
         </Button>
       </motion.div>
       <motion.div whileHover={{ scale: 1.05 }}>
-        <Button variant="ghost" className="text-primary hover:bg-primary/10" asChild>
+        <Button variant="ghost" className="bg-gradient-to-r from-primary to-primary-dark text-secondary-dark hover:opacity-90" asChild>
           <Link href="/signup">Sign Up</Link>
         </Button>
       </motion.div>
@@ -109,10 +109,10 @@ function MobileMenu() {
               {item.label}
             </Link>
           ))}
-          <Button variant="outline" className="text-gold border-gold hover:bg-gold/10" asChild>
+          <Button variant="outline" className="bg-gradient-to-r from-primary to-primary-dark text-secondary-dark   border-none hover:bg-gold/10 font-bold" asChild>
             <Link href="/signin">Sign In</Link>
           </Button>
-          <Button variant="ghost" className="text-primary hover:bg-primary/10" asChild>
+          <Button variant="ghost" className="bg-gradient-to-r from-primary to-primary-dark text-secondary-dark hover:opacity-90 font-bold" asChild>
             <Link href="/signup">Sign Up</Link>
           </Button>
         </div>

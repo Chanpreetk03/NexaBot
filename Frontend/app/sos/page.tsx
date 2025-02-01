@@ -6,56 +6,107 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Phone, Hospital, BadgeHelp, Flame, User, AlertTriangle } from "lucide-react"
 import { Logo } from "@/components/logo"
 
+// const emergencyContacts = [
+//   {
+//     name: "Emergency Services",
+//     number: "112",
+//     icon: AlertTriangle,
+//     bgColor: "bg-red-600",
+//     textColor: "text-white",
+//     description: "For immediate life-threatening emergencies",
+//   },
+//   {
+//     name: "Crisis Hotline",
+//     number: "93452XXXXX",
+//     icon: Phone,
+//     bgColor: "bg-primary",
+//     textColor: "text-secondary-dark",
+//     description: "24/7 suicide prevention and crisis support",
+//   },
+//   {
+//     name: "Hospital",
+//     number: "102",
+//     icon: Hospital,
+//     bgColor: "bg-cyan-600",
+//     textColor: "text-white",
+//     description: "Local emergency medical services",
+//   },
+//   {
+//     name: "Police",
+//     number: "100",
+//     icon: BadgeHelp,
+//     bgColor: "bg-blue-600",
+//     textColor: "text-white",
+//     description: "Local law enforcement",
+//   },
+//   {
+//     name: "Fire Department",
+//     number: "101",
+//     icon: Flame,
+//     bgColor: "bg-orange-600",
+//     textColor: "text-white",
+//     description: "Fire and rescue services",
+//   },
+//   {
+//     name: "Emergency Contact",
+//     number: "97483XXXXX",
+//     icon: User,
+//     bgColor: "bg-gold",
+//     textColor: "text-secondary-dark",
+//     description: "Your designated emergency contact",
+//   },
+// ]
+
 const emergencyContacts = [
   {
     name: "Emergency Services",
-    number: "911",
+    number: "112",
     icon: AlertTriangle,
-    bgColor: "bg-red-600",
+    bgColor: "bg-gradient-to-b from-[#2C3E50] to-[#4DB6AC]", // Lighter gradient (soft blue to teal)
     textColor: "text-white",
     description: "For immediate life-threatening emergencies",
   },
   {
     name: "Crisis Hotline",
-    number: "1-800-273-8255",
+    number: "93452XXXXX",
     icon: Phone,
-    bgColor: "bg-primary",
-    textColor: "text-secondary-dark",
+    bgColor: "bg-gradient-to-b from-[#2C3E50] to-[#4DB6AC]", // Soft gradient for all services
+    textColor: "text-white",
     description: "24/7 suicide prevention and crisis support",
   },
   {
     name: "Hospital",
-    number: "555-0123",
+    number: "102",
     icon: Hospital,
-    bgColor: "bg-cyan-600",
+    bgColor: "bg-gradient-to-b from-[#2C3E50] to-[#4DB6AC]", // Light gradient for medical services
     textColor: "text-white",
     description: "Local emergency medical services",
   },
   {
     name: "Police",
-    number: "555-0124",
+    number: "100",
     icon: BadgeHelp,
-    bgColor: "bg-blue-600",
+    bgColor: "bg-gradient-to-b from-[#2C3E50] to-[#4DB6AC]", // Lighter blue gradient for the police
     textColor: "text-white",
     description: "Local law enforcement",
   },
   {
     name: "Fire Department",
-    number: "555-0125",
+    number: "101",
     icon: Flame,
-    bgColor: "bg-orange-600",
+    bgColor: "bg-gradient-to-b from-[#2C3E50] to-[#4DB6AC]", // Fire Department with light gradient
     textColor: "text-white",
     description: "Fire and rescue services",
   },
   {
     name: "Emergency Contact",
-    number: "555-0126",
+    number: "97483XXXXX",
     icon: User,
-    bgColor: "bg-gold",
-    textColor: "text-secondary-dark",
+    bgColor: "bg-gradient-to-b from-[#2C3E50] to-[#4DB6AC]", // Same light gradient across all
+    textColor: "text-white",
     description: "Your designated emergency contact",
   },
-]
+];
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -135,7 +186,7 @@ export default function SOS() {
               <div className="flex flex-wrap justify-center gap-4 mt-6">
                 <Button
                   variant="outline"
-                  className="border-primary text-primary hover:bg-primary/10"
+                  className="border-primary-dark text-primary-dark hover:bg-primary/10"
                   onClick={() => (window.location.href = "/chat")}
                 >
                   Chat Now

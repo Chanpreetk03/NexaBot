@@ -30,14 +30,14 @@ export default function SignUp() {
     >
       <div className="absolute inset-0 bg-gradient-to-r from-primary/10 to-gold/10 pointer-events-none" />
 
-      <Card className="w-full max-w-md bg-secondary-dark/80 backdrop-blur-md border-primary/20">
+      <Card className="w-full max-w-md bg-black text-white backdrop-blur-md border-primary/20">
         <CardHeader>
           <CardTitle className="text-2xl text-center text-gradient-nexabot">Create an Account</CardTitle>
-          <CardDescription className="text-center">Join Nexabot for personalized mental health support</CardDescription>
+          <CardDescription className="text-center text-white">Join Nexabot for personalized mental health support</CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
-            <div className="space-y-2">
+            <div className="space-y-2 text-neutral">
               <Label htmlFor="email">Email</Label>
               <Input
                 id="email"
@@ -49,7 +49,7 @@ export default function SignUp() {
                 className="bg-secondary border-primary/20 text-neutral"
               />
             </div>
-            <div className="space-y-2">
+            <div className="space-y-2 text-neutral">
               <Label htmlFor="password">Password</Label>
               <Input
                 id="password"
@@ -61,7 +61,7 @@ export default function SignUp() {
                 className="bg-secondary border-primary/20 text-neutral"
               />
             </div>
-            <div className="space-y-2">
+            <div className="space-y-2 text-neutral">
               <Label htmlFor="confirm-password">Confirm Password</Label>
               <Input
                 id="confirm-password"
