@@ -27,13 +27,12 @@ export default function Chat() {
       <div
         className="absolute inset-0 z-0"
         style={{
-          background: "linear-gradient(135deg, rgba(102, 252, 241, 0.1) 0%, rgba(255, 215, 0, 0.1) 100%)",
+          background: `linear-gradient(135deg, rgba(102, 252, 241, 0.1) 0%, rgba(255, 215, 0, 0.1) 100%),url('https://media.istockphoto.com/id/1553326519/photo/businessman-using-smartphone-to-chatting-by-use-chat-bot-program-for-artificial-intelligence.jpg?s=612x612&w=0&k=20&c=0QYh6jCiLjdCUtx0oS1OhYG3jZBAxJN__x5g85K3Ihk=')`,
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundAttachment: "fixed",
         }}
       />
-
       <div className="container mx-auto px-4 py-8 relative z-10">
         <Card className="max-w-4xl mx-auto bg-secondary-dark/80 backdrop-blur-md border-primary/20">
           <CardHeader className="border-b border-primary/20">
@@ -54,7 +53,7 @@ export default function Chat() {
                   variant="outline"
                   size="icon"
                   asChild
-                  className="text-primary border-primary hover:bg-primary/10"
+                  className="text-black border-none bg-primary hover:bg-primary/10"
                 >
                   <Link href="/profile">
                     <Settings className="h-4 w-4" />
@@ -63,7 +62,7 @@ export default function Chat() {
               </div>
             </div>
           </CardHeader>
-          <CardContent className="p-4 h-[600px] overflow-auto space-y-4">
+          <CardContent className="p-4 h-[600px] overflow-auto space-y-4 flex flex-col">
             <AnimatePresence>
               {messages.map((message) => (
                 <motion.div
@@ -115,7 +114,7 @@ export default function Chat() {
                 type="button"
                 variant="outline"
                 size="icon"
-                className="shrink-0 text-primary border-primary hover:bg-primary/10"
+                className="shrink-0 text-black border-none bg-primary-dark hover:bg-primary/10"
                 onClick={() => setIsVoiceMode(!isVoiceMode)}
               >
                 <Mic className={`h-5 w-5 ${isVoiceMode ? "text-gold" : ""}`} />
@@ -140,4 +139,6 @@ export default function Chat() {
     </div>
   )
 }
+
+
 

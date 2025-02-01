@@ -28,19 +28,19 @@ export function Footer() {
               </p>
               <p className="flex items-center text-neutral/80">
                 <Phone className="h-4 w-4 mr-2 text-primary" />
-                +1 (555) 123-4567
+                +91 98765XXXXX
               </p>
-              <p className="flex items-center text-neutral/80">
+              {/* <p className="flex items-center text-neutral/80">
                 <MapPin className="h-4 w-4 mr-2 text-primary" />
-                123 AI Street, Tech City
-              </p>
+                Sector 10, Dwarka New Delhi - 110075
+              </p> */}
             </div>
           </div>
 
           <div className="space-y-4">
-            <h3 className="text-lg font-semibold text-primary">Newsletter</h3>
+            <h3 className="text-lg font-semibold text-primary">Get Wellness Tips from Nexabot</h3>
             <p className="text-neutral/80">
-              Subscribe to our newsletter for the latest updates and emotional health tips.
+            Join our community and receive insights, emotional well-being tips, and exclusive updates straight from your AI-powered mental health companion.
             </p>
             <div className="flex space-x-2">
               <Input
