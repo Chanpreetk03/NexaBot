@@ -4,7 +4,7 @@ from app.database import get_database
 from bson import ObjectId
 from app.utils.auth import verify_password, create_access_token
 from datetime import timedelta
-
+from app.schemas.user import UserResponse
 router = APIRouter()
 
 database = get_database()
@@ -25,9 +25,12 @@ async def login(login_request: LoginRequest):
         raise HTTPException(status_code=401, detail="Invalid email or password")
     
     # Create JWT Token
-    access_token = create_access_token(
+    token = create_access_token(
         data={"user_id": str(user["_id"]), "email": user["email"]},
         expires_delta=timedelta(minutes=60)
     )
     
-    return {"access_token": access_token, "token_type": "bearer"}
+    # Remove password before returning user data
+    user.pop("password", None)
+    
+    return {"token": token, "user": UserResponse(**user, id=str(user["_id"]))}
