@@ -73,7 +73,7 @@ npm or yarn ⚡
 
 The project structure is organized as follows:
 ```
-NexaBot/
+/NexaBot
  └── backend/ 
  ├── app/ │ 
  ├── main.py # FastAPI application entry point 
