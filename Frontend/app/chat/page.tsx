@@ -7,22 +7,10 @@ import { Card, CardContent, CardHeader, CardTitle, CardFooter } from "@/componen
 import { Mic, Send, User, Bot, Settings } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
-
 import { chat } from "@/utils/api";
 
 export default function Chat() {
-  const [user, setUser] = useState<{ userId:string , name: string; email: string; password: string; phone_number:string ; emergency_contact_name: string ; emergency_contact_number: string ; isAdmin: boolean}>();
-
-  useEffect(() => {
-    // Ensure this code runs only on the client
-    if (typeof window !== "undefined") {
-      const storedUser = localStorage.getItem("user");
-      if (storedUser) {
-        setUser(JSON.parse(storedUser));
-      }
-    }
-  }, []);
-
+  const [user, setUser] = useState<{id:string ; name: string; email: string; password: string; phone_number:string ; emergency_contact_name: string ; emergency_contact_number: string ; isAdmin: boolean}>();
   const [messages, setMessages] = useState([
     {
       id: "welcome",
@@ -35,23 +23,50 @@ export default function Chat() {
   const [isLoading, setIsLoading] = useState(false);
   const [isVoiceMode, setIsVoiceMode] = useState(false);
 
-  const handleSendMessage = async (e: React.FormEvent) => {
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const storedUser = localStorage.getItem("user");
+      if (storedUser) {
+        try {
+          const parsedUser = JSON.parse(storedUser);
+          setUser(parsedUser);
+        } catch (error) {
+          console.error("Error parsing stored user:", error);
+        }
+      }
+    }
+  }, []);
+
+  const handleSendMessage = async (e:any) => {
     e.preventDefault();
-    if (!input.trim() || !user!.userId) return;
+    console.log("Current user in handleSendMessage:", user);
+
+    // Check if the input is empty
+    if (!input.trim()) return;
     
+    // Now checking using `id` property.
+    if (!user || !user.id) {
+      console.error("User is not available. Ensure you're logged in and user data is stored in localStorage.");
+      alert("User is not available. Please log in first.");
+      return;
+    }
+
     const newMessage = { id: Date.now().toString(), role: "user", content: input };
-    setMessages([...messages, newMessage]);
+    setMessages((prev) => [...prev, newMessage]);
     setInput("");
     setIsLoading(true);
 
     try {
-      if(user !== null) {
-      const response = await chat(user!.userId, input);
-      console.log(response); 
-      setMessages([...messages, newMessage, { id: Date.now().toString(), role: "assistant", content: response.response }]);
-      }
+      const response = await chat(user.id, input);
+      console.log("Chat response:", response);
+      setMessages((prev) => [
+        ...prev,
+        newMessage,
+        { id: Date.now().toString(), role: "assistant", content: response.response },
+      ]);
     } catch (error) {
-      console.error("Chat API error", error);
+      console.error("Chat API error:", error);
+      alert("There was an error sending your message.");
     } finally {
       setIsLoading(false);
     }
