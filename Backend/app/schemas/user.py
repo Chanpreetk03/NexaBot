@@ -6,6 +6,7 @@ class UserCreate(BaseModel):
     name: str
     email: EmailStr
     phone_number: str
+    password: str
     emergency_contact_name: str
     emergency_contact_number: str
     isAdmin: bool = False
