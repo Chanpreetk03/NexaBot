@@ -8,7 +8,7 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card"
 import Link from "next/link"
 import {createUser} from "@/utils/api"
-import { setUser } from "@/utils/storage"
+import { useEffect } from "react"
 
 export default function SignUp() {
   const [name, setName] = useState("")
@@ -20,6 +20,13 @@ export default function SignUp() {
   const [password, setPassword] = useState("")
   const [confirmPassword, setConfirmPassword] = useState("")
   const [isAgreed, setIsAgreed] = useState(false)  // State for checkbox agreement
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    if (user) {
+      localStorage.setItem("user", JSON.stringify(user));
+    }
+  }, [user]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -31,10 +38,18 @@ export default function SignUp() {
 
     // Log the data for user creation
     try {
-      const userData={email:email, password:password, name:name, phone_number:phoneNumber, emergency_contact_name:emergencyContactName, emergency_contact_number:emergencyContactNumber, isAdmin:isAdmin}
-      const response = await createUser(userData)
-      setUser(response.user);
-      alert("User created successfully. Please LoginIn with these details.")
+      const userData = {
+        email: email,
+        password: password,
+        name: name,
+        phone_number: phoneNumber,
+        emergency_contact_name: emergencyContactName,
+        emergency_contact_number: emergencyContactNumber,
+        isAdmin: isAdmin,
+      };
+      const response = await createUser(userData);
+      setUser(response.user); // Updates user state and triggers the useEffect.
+      alert("User created successfully. Please log in with these details.");
     } catch (error) {
         alert("Failed to create user. Please try again.")
         console.error("Failed to create user:", error)

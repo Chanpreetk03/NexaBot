@@ -8,14 +8,29 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter }
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import Link from "next/link"
 import { loginUser } from "@/utils/api"
-import { setUser, setToken } from "@/utils/storage"
-
+import { useEffect } from "react"
 
 export default function SignIn() {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [adminId, setAdminId] = useState("")
   const [adminPassword, setAdminPassword] = useState("")
+  const [user, setUserState] = useState(null);
+  const [token, setTokenState] = useState(null);
+
+  // Effect to update localStorage when token changes
+  useEffect(() => {
+    if (token) {
+      localStorage.setItem("token", token);
+    }
+  }, [token]);
+
+  // Effect to update localStorage when user changes
+  useEffect(() => {
+    if (user) {
+      localStorage.setItem("user", JSON.stringify(user));
+    }
+  }, [user]);
 
   const handleUserSubmit =async (e: React.FormEvent) => {
     e.preventDefault()
@@ -23,8 +38,8 @@ export default function SignIn() {
     try {
       const credentials = { email, password }
       const response = await loginUser(credentials)
-      setToken(response.token)
-      setUser(response.user)
+      setTokenState(response.token);
+      setUserState(response.user);
       console.log(response)
       alert("User signed in successfully")
     } catch (error) {
@@ -40,8 +55,8 @@ export default function SignIn() {
     try {
       const credentials = { email:adminId,password: adminPassword }
       const response = await loginUser(credentials)
-      setToken(response.token)
-      setUser(response.user)
+      setTokenState(response.token);
+      setUserState(response.user);
       alert("Admin signed in successfully")
     } catch (error) {
       alert("An error occurred while signing in")

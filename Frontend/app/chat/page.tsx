@@ -7,12 +7,21 @@ import { Card, CardContent, CardHeader, CardTitle, CardFooter } from "@/componen
 import { Mic, Send, User, Bot, Settings } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
-import { getUser } from "@/utils/storage";
+
 import { chat } from "@/utils/api";
 
 export default function Chat() {
-  const user = getUser();
-  const userId = user?.id; 
+  const [user, setUser] = useState<{ userId:string , name: string; email: string; password: string; phone_number:string ; emergency_contact_name: string ; emergency_contact_number: string ; isAdmin: boolean}>();
+
+  useEffect(() => {
+    // Ensure this code runs only on the client
+    if (typeof window !== "undefined") {
+      const storedUser = localStorage.getItem("user");
+      if (storedUser) {
+        setUser(JSON.parse(storedUser));
+      }
+    }
+  }, []);
 
   const [messages, setMessages] = useState([
     {
@@ -28,7 +37,7 @@ export default function Chat() {
 
   const handleSendMessage = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!input.trim() || !userId) return;
+    if (!input.trim() || !user!.userId) return;
     
     const newMessage = { id: Date.now().toString(), role: "user", content: input };
     setMessages([...messages, newMessage]);
@@ -36,9 +45,11 @@ export default function Chat() {
     setIsLoading(true);
 
     try {
-      const response = await chat(userId, input);
+      if(user !== null) {
+      const response = await chat(user!.userId, input);
       console.log(response); 
       setMessages([...messages, newMessage, { id: Date.now().toString(), role: "assistant", content: response.response }]);
+      }
     } catch (error) {
       console.error("Chat API error", error);
     } finally {
