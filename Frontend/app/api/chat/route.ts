@@ -1,7 +1,4 @@
-import { GoogleGenerativeAI } from "@google/generative-ai"
-import { GoogleGenerativeAIStream, type Message, StreamingTextResponse } from "ai"
 
-const genAI = new GoogleGenerativeAI(process.env.GOOGLE_GEMINI_API_KEY || "")
 
 export async function POST(req: Request) {
   try {
