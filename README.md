@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 # Project Overview 🌟
 NexaBot is a 24/7 AI-powered chatbot designed to provide personalized emotional support while helping users manage mental health challenges like stress, anxiety, and depression. The platform aims to create a safe, confidential, and empathetic space for users to seek help at any time.
 
@@ -192,4 +190,3 @@ Set the required environment variables (e.g., MONGO_URI, JWT_SECRET, GEMINI_API_
 Configure the application entry point in your deployment settings (e.g., uvicorn app.main:app --host 0.0.0.0 --port $PORT).
 Push your code to GitHub, and Render will automatically deploy the latest version.
 Monitor logs to ensure the service runs smoothly.
->>>>>>> 39048aff835d75ebebf9b8709aaa78b9b237bbec
