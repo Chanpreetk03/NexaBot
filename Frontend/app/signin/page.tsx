@@ -7,28 +7,59 @@ import { Label } from "@/components/ui/label"
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import Link from "next/link"
+import { loginUser } from "@/utils/api"
+import { useEffect } from "react"
 
 export default function SignIn() {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [adminId, setAdminId] = useState("")
   const [adminPassword, setAdminPassword] = useState("")
+  const [user, setUserState] = useState(null);
+  const [token, setTokenState] = useState(null);
 
-  const handleUserSubmit = (e: React.FormEvent) => {
+  // Effect to update localStorage when token changes
+  useEffect(() => {
+    if (token) {
+      localStorage.setItem("token", token);
+    }
+  }, [token]);
+
+  // Effect to update localStorage when user changes
+  useEffect(() => {
+    if (user) {
+      localStorage.setItem("user", JSON.stringify(user));
+    }
+  }, [user]);
+
+  const handleUserSubmit =async (e: React.FormEvent) => {
     e.preventDefault()
     // Here you would typically handle the user sign-in logic
+    try {
+      const credentials = { email, password }
+      const response = await loginUser(credentials)
+      setTokenState(response.token);
+      setUserState(response.user);
+      console.log(response)
+      alert("User signed in successfully")
+    } catch (error) {
+      console.error(error)
+      alert("An error occurred while signing in")
+    }
     console.log("User sign in with:", email, password)
   }
 
-  const handleAdminSubmit = (e: React.FormEvent) => {
+  const handleAdminSubmit =async (e: React.FormEvent) => {
     e.preventDefault()
     // Here you would typically handle the admin sign-in logic
-    if (adminId === "Admin" && adminPassword === "Admin@123") {
-      console.log("Admin signed in successfully")
-      // Redirect to admin dashboard or perform necessary actions
-    } else {
-      console.log("Admin sign in failed")
-      // Show error message
+    try {
+      const credentials = { email:adminId,password: adminPassword }
+      const response = await loginUser(credentials)
+      setTokenState(response.token);
+      setUserState(response.user);
+      alert("Admin signed in successfully")
+    } catch (error) {
+      alert("An error occurred while signing in")
     }
   }
 
@@ -107,7 +138,7 @@ export default function SignIn() {
               <form onSubmit={handleAdminSubmit} className="space-y-4">
                 <div className="space-y-2">
                   <Label htmlFor="adminId" className="text-neutral">
-                    Admin ID
+                    Admin Email
                   </Label>
                   <Input
                     id="adminId"
